@@ -21,18 +21,45 @@
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBSoT1wqRczujvxKtreO6O7a4RJ-GF61o4&sensor=true"></script>
 
 <script type="text/javascript">
-	var map;
-	function trashcode() {
-		googleLocation.getCurrentLocation(map);
+	var map, map_police;
+	var pos = {latitude:0.00, longitude:0.00};
+	var makers = [];
+	function registerPolice() {
+		var name = document.getElementById("policeName").value;
+		var oReq = new XMLHttpRequest;
+		oReq.onload = function() {
+			alert(this.responseText);
+			$.mobile.changePage('#police2', {
+				transition: 'slide'
+			});
+			googleLocation.getCurrentLocation(map_police, pos);
+		};
+		// oReq.open("get", "http://cspro.sogang.ac.kr/~cse20121657/project/getdata.php?name="+name+"&latitude="+pos.latitude+"&longitude="+pos.longitude, true);
+		oReq.open("get", "http://cspro.sogang.ac.kr/~cse20121657/project/getdata.php", true);
+		oReq.send();
+	}
+	function updatePoliceMap() {
+		// Remove all markers.
+		for (var i = 0; i < markers.length; ++i) {
+			markers[i].setMap(null);
+		}
+		markers = [];
+
+		// Set new makers and show all of them.
+		
 	}
 </script>
 </head>
 
 <body>
 	<script type="text/javascript">
+		$(document).on("pageshow", "#police", function() {
+			map_police = googleLocation.initializePolice();
+			googleLocation.getCurrentLocation(map_police, pos);
+		});
 		$(document).on("pageshow", "#thief", function() {
 			map = googleLocation.initialize();
-			googleLocation.getCurrentLocation(map);
+			googleLocation.getCurrentLocation(map, pos);
 		});
 	</script>
 
@@ -50,14 +77,30 @@
 	
 	<div data-role="page" id="police" data-theme="d">
 		<div data-role="header" data-position="fixed" data-theme="d">
-			<h1>Play with police</h1>
+			<h1>Play with police(Register)</h1>
 		</div>
 		<div class="ui-body ui-body-b ui-corner-all myForm">
-			<div data-role="fieldcontain">
-				<label>Location to search for:</label> <input type="search" name="search" id="searchLocation" value="" />
+			<label>Name:</label></br><input type="text" id="policeName"></br>
+			<input type="submit" onclick="registerPolice()" value="OK">
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#main">Home</a></li>
+				</ul>
 			</div>
 		</div>
-		<div id="searchMap"></div>
+		<div data-role="popup" class="popup">
+			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<p></p>
+		</div>
+	</div>
+	<div data-role="page" id="police2" data-theme="d">
+		<div data-role="header" data-position="fixed" data-theme="d">
+			<h1>Play with Police(Map)</h1>
+		</div>
+		<div id="map_police"></div>
+		<input type="button" value="Update Polices' Location info" onclick="updatePoliceMap()">
 		<div data-role="footer" data-position="fixed">
 			<div data-role="navbar">
 				<ul>

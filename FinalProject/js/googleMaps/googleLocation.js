@@ -39,8 +39,8 @@ var googleLocation = (function ($, logger, view, network, ajax) {
                 ajaxEnabled: false
             });
             
-            logger.info("South Korea Google Map View");
             internetConnectionCheck();
+            
             return that.createMapForGivenContainer("map_canvas", {
                 zoom: 6,
                 lat: 37.3359,
@@ -52,6 +52,34 @@ var googleLocation = (function ($, logger, view, network, ajax) {
             view.getScreenHeight();
             view.getScreenWidth();
         },
+        initializePolice: function () {
+            var that = this;
+            ajax();
+            $.extend($.mobile, {
+                defaultPageTransition: "flip",
+                loadingMessageTextVisible: true,
+                pageLoadErrorMessage: "Unable to load page",
+                pageLoadErrorMessageTheme: "d",
+                touchOverflowEnabled: true,
+                loadingMessage: "Please wait...",
+                allowCrossDomainPages: true,
+                ajaxEnabled: false
+            });
+            
+            internetConnectionCheck();
+            
+            return that.createMapForGivenContainer("map_police", {
+                zoom: 6,
+                lat: 37.3359,
+                lon: 126.5840,
+                streetViewControl: false,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            
+            view.getScreenHeight();
+            view.getScreenWidth();
+        },
+        
         /**
          * Method that can be used for basic google.maps.Map creation for given container
          * @param container
@@ -97,7 +125,7 @@ var googleLocation = (function ($, logger, view, network, ajax) {
          * Method that can be used to get current device geolocation according to W3C Geolocation API
          * @returns
          */
-        getCurrentLocation: function (map) {
+        getCurrentLocation: function (map, pos) {
             logger.info('getCurrentLocation');
             if (navigator && navigator.geolocation && navigator.geolocation.getCurrentPosition) {
                 navigator.geolocation.getCurrentPosition(function (position) {
@@ -109,6 +137,8 @@ var googleLocation = (function ($, logger, view, network, ajax) {
                     	// view.showPopup('Latitude: ' + position.coords.latitude + "<br />" + 'Longitude: ' + position.coords.longitude);
                     	map.setCenter({lat: position.coords.latitude,
                     					lng: position.coords.longitude});
+                    	pos.latitude = position.coords.latitude;
+                    	pos.longitude = position.coords.longitude;
                     	new google.maps.Marker({position: {lat: position.coords.latitude,
                     										lng: position.coords.longitude},
                     										map: map}); 

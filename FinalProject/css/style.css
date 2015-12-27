@@ -17,6 +17,11 @@ body {
 	width: 100%;
 }
 
+#map_police {
+	height: 70%;
+	width: 100%;
+}
+
 #searchMap {
 	height: 66%;
 	width: 100%;
