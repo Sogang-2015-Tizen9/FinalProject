@@ -23,7 +23,8 @@
 <script type="text/javascript">
 	var map, map_police;
 	var pos = {latitude:0.00, longitude:0.00};
-	var makers = [];
+	var markers = [];
+	var thiefMarker;
 	function registerPolice() {
 		var name = document.getElementById("policeName").value;
 		var oReq = new XMLHttpRequest;
@@ -32,7 +33,6 @@
 			$.mobile.changePage('#police2', {
 				transition: 'slide'
 			});
-			googleLocation.getCurrentLocation(map_police, pos);
 		};
 		// oReq.open("get", "http://cspro.sogang.ac.kr/~cse20121657/project/getdata.php?name="+name+"&latitude="+pos.latitude+"&longitude="+pos.longitude, true);
 		oReq.open("get", "http://cspro.sogang.ac.kr/~cse20121657/project/getdata.php", true);
@@ -45,21 +45,59 @@
 		}
 		markers = [];
 
-		// Set new makers and show all of them.
-		
+		// Set new makers and show all of them. (searching from cspro db)
+		$.ajax({
+      		type: 'GET',
+      		url: 'http://cspro.sogang.ac.kr/~cse20121657/project/senddata.php',
+      		success: function(result) {
+          		for (var i = 0; i < result.length; ++i) {
+              		var currName = result[i][0];
+              		var currLatlng = new google.maps.LatLng(result[i][1], result[i][2]);
+                  	var new_marker = new google.maps.Marker({
+                  		position: currLatlng,
+                  		title: currName,
+                  		map: map_police
+                  	});
+                  	markers.push(new_marker);
+          		}
+      		},
+  		});
+	}
+	function updateThiefPosAndGetHint() {
+		// update location info.
+		thiefMarker.setMap(null);
+		googleLocation.getCurrentLocation(map, pos);
+		thiefMarker = new google.maps.Marker({
+			position: new google.maps.LatLng(pos.latitude, pos.longitude),
+			map: map
+		});
+
+		// Get hint(push notification if this thief are near by any polices).
+		// Using TIZEN WEB DEVICE API(javascript for HYBRID APP).
+		// TO DO.
 	}
 </script>
 </head>
 
 <body>
 	<script type="text/javascript">
+		$(document).on("pageshow", "#main", function() {
+			map = googleLocation.initialize();
+			googleLocation.getCurrentLocation(map, pos);
+		});
 		$(document).on("pageshow", "#police", function() {
+		});
+		$(document).on("pageshow", "#police2", function() {
 			map_police = googleLocation.initializePolice();
-			googleLocation.getCurrentLocation(map_police, pos);
+			googleLocation.getCurrentLocationPolice(map_police, pos);
 		});
 		$(document).on("pageshow", "#thief", function() {
 			map = googleLocation.initialize();
 			googleLocation.getCurrentLocation(map, pos);
+			thiefMarker = new google.maps.Marker({
+				position: new google.maps.LatLng(pos.latitude, pos.longitude),
+				map: map
+			});
 		});
 	</script>
 
@@ -119,6 +157,7 @@
 			<h1>Play with thief</h1>
 		</div>
 		<div id="map_canvas"></div>
+		<input type="button" value="Update my location and Get hint" onclick="updateThiefPosAndGetHint()">
 		<div data-role="footer" data-position="fixed">
 			<div data-role="navbar">
 				<ul>

@@ -155,6 +155,33 @@ var googleLocation = (function ($, logger, view, network, ajax) {
                 logger.err('No W3C Geolocation API available');
             }
         },
+        getCurrentLocationPolice: function (map, pos) {
+            logger.info('getCurrentLocationPolice');
+            if (navigator && navigator.geolocation && navigator.geolocation.getCurrentPosition) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    view.hideLoader();
+                    // Currently Tizen returns coords as 0 0 and we should treat this as an error
+                    if (position.coords.latitude === 0 && position.coords.longitude === 0) {
+                        view.showPopup('Unable to acquire your location');
+                    } else {
+                    	// view.showPopup('Latitude: ' + position.coords.latitude + "<br />" + 'Longitude: ' + position.coords.longitude);
+                    	map.setCenter({lat: position.coords.latitude,
+                    					lng: position.coords.longitude});
+                    	pos.latitude = position.coords.latitude;
+                    	pos.longitude = position.coords.longitude;
+                    	map.setZoom(17);
+                    }
+                }, function (error) {
+                    view.hideLoader();
+                    view.showPopup('Unable to acquire your location');
+                    logger.err('GPS error occurred. Error code: ', JSON.stringify(error));
+                });
+            } else {
+                view.hideLoader();
+                view.showPopup('Unable to acquire your location');
+                logger.err('No W3C Geolocation API available');
+            }
+        },
         
         focusToCurrentLocation: function (map) {
             logger.info('getCurrentLocation');
