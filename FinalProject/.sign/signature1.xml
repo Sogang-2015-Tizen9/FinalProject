@@ -2,13 +2,17 @@
 <SignedInfo>
 <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"></CanonicalizationMethod>
 <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"></SignatureMethod>
+<Reference URI="audio%2Fgun.wav">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>dvH1cdcsGgwwpoK3dn2x0yqCgv1VVJh0DNrdG3OFxh4=</DigestValue>
+</Reference>
 <Reference URI="author-signature.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>DgvLBbvb8ibysAwNZtKJ3pARQa8DSTv11tAZnN9yIsE=</DigestValue>
+<DigestValue>LSVVrL/sTYElfcfnYuFgxRIFMKoABJxLFaXRHXGgv7I=</DigestValue>
 </Reference>
 <Reference URI="config.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>Bq2uzpASiq91fkZDlLL6k2+S2lECnVIKr8Gcws77eOw=</DigestValue>
+<DigestValue>ouoi9mUrTUfuKdZ55Mw9DYEzNC7wRojhQG9ZGyeB0P4=</DigestValue>
 </Reference>
 <Reference URI="css%2Fimages%2Fajax-loader.gif">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -60,7 +64,7 @@
 </Reference>
 <Reference URI="index.html">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>wZNYKOMSMZ+/CZaC+WqhVK8VzGZKJqbP166ATWKMBqk=</DigestValue>
+<DigestValue>7lxP1ucuFJhwADebWsoq5Ju77R2e2qJP2cZzwMvE7H4=</DigestValue>
 </Reference>
 <Reference URI="js%2FgoogleMaps%2FgoogleDistance.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -123,11 +127,11 @@
 </Reference>
 </SignedInfo>
 <SignatureValue>
-Ve02Y4x0JJ/lEixDH6tl/o5sQXnM+2uqeTORAIiWul2mBuneQjtmWelg4BhhmaVnZM7fum2YCi0M
-fEgAQUbgvQkBMVkI4ON1OgBFZkSTJcdHWUkv8r8RWSpIX/lrFohVAKPpaQf9ic0aZKhusAYp60la
-cMYAvEa4tipEutTgxiqTZRtXtaNo/u0pqZ4LuJ0JQgWQM3D3iMgw7U19JTftvt/aQqu29HP+/GW5
-ReEp+Hyn+E4Pv+2kIb5r0RzptFVq8D9nhBgAPybYNI2FW9MP4JAMf436B7OraWajisyX164WnnXS
-Eh7T64HGB4Hps4UroGme5Ht5QojwwioH1trdbQ==
+sm42nZGSvWUlh0fyw2Ig0ATdUMtccLgJOfdDGXXwEyFynSs0iS7mOKTYu/J8g8Uht42ApVYhGr2Z
+TWAvWECg2PIxEQ032aIZc3tKWm///plozoXCToVVSNYqyKvaPLJigD/a8OG7OmMG6U+zy+Lek6jf
+zfUv+z1zp/xe42+hGiEaFes+FM71XbxU7VkuN3wFEvXA+3ixMATV74tskji33fHmAb+e0CNXXGGo
+ZzmkXn/mYi3Ypkl8BtbaGqnGZDil8jcwNfskXlGZwJkHVCqs3yNVTw/fR7Wt8tJPtR0FF6HyQ/cb
+FvaIr1QVL92jgVuOSeRwvPRrQXSo72Fag8l07Q==
 </SignatureValue>
 <KeyInfo>
 <X509Data>

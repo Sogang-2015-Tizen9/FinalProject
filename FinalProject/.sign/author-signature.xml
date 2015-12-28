@@ -2,9 +2,13 @@
 <SignedInfo>
 <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"></CanonicalizationMethod>
 <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"></SignatureMethod>
+<Reference URI="audio%2Fgun.wav">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>dvH1cdcsGgwwpoK3dn2x0yqCgv1VVJh0DNrdG3OFxh4=</DigestValue>
+</Reference>
 <Reference URI="config.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>Bq2uzpASiq91fkZDlLL6k2+S2lECnVIKr8Gcws77eOw=</DigestValue>
+<DigestValue>ouoi9mUrTUfuKdZ55Mw9DYEzNC7wRojhQG9ZGyeB0P4=</DigestValue>
 </Reference>
 <Reference URI="css%2Fimages%2Fajax-loader.gif">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -56,7 +60,7 @@
 </Reference>
 <Reference URI="index.html">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>wZNYKOMSMZ+/CZaC+WqhVK8VzGZKJqbP166ATWKMBqk=</DigestValue>
+<DigestValue>7lxP1ucuFJhwADebWsoq5Ju77R2e2qJP2cZzwMvE7H4=</DigestValue>
 </Reference>
 <Reference URI="js%2FgoogleMaps%2FgoogleDistance.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -119,11 +123,11 @@
 </Reference>
 </SignedInfo>
 <SignatureValue>
-Qxv7NHD/8Xo+TZwBZ8kHGo3JGbha627OqfaUUC0mN6hawnh1+Twh8S745zXktIQnToLIhzgtSleD
-y4xdSAT7mjgufYNRUdp8S+PLAafQ+Qln8H5Pvg0pDFGj+sKeTSk4Ui+/2K4kDjQkPofmghrWUfvJ
-it9dYMyHZt+AhY7jpvzWAMJi2ijInQdd0Z9r3ovqHTydFBGUfONpLHL+LHOeGVTQDzBiRpX1pUg6
-NJO1OODTI1s7yMaz6O1Y7E+Vhj8od1Mu1fGnRAyxzU1mJ6VmLprhGDR7GC9WAY0WkbwnN2X67mHa
-o1hQiOiJRN+sZ2GsL3TPDFocn+9cJHiAdYlyAw==
+N8xD9w5RDsBzg+3MmbOAuIMSqta17eOHw6y7YDLecoEcWzvOc/H5a80xqvj+J9x7uqusDNJ5JvEY
+DaDsod5fQa82uS0A7iKPsLr7QsXve6CnTyqT8gzggSnPnGwGcFi9kll1QnUBSmfTwtu4nXj62CNe
+OSsoQ8/yD42OZTShocs3MjCUC2JIJMAfnPXyxccJjydEWXegrfGuzPzz799C2kO1tj8c79VtOHfa
+4oEmAHYSeuRFANtTfYaybL0Pf5v0ChS5Z54Zi6SzP1N67L/7UdDUlEgvtuK/I6dJ67nkTOqWwkI9
+0DPRg69bbqW6RsDx9JsxETTSdPZm+jEr7fLAKA==
 </SignatureValue>
 <KeyInfo>
 <X509Data>

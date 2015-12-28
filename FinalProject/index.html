@@ -19,12 +19,31 @@
 <script type="text/javascript" src="./js/googleMaps/googleLocation.js"></script>
 <script type="text/javascript" src="./js/googleMaps/googleDistance.js"></script>
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBSoT1wqRczujvxKtreO6O7a4RJ-GF61o4&sensor=true"></script>
+<script type="text/javascript">
+function errorCallback(response) 
+{
+   alert('The following error occurred: ' +  response.name);
+}
+function registerSuccessCallback(id) 
+{
+   alert("Registration succeeded with id: " + id);
+}
+</script>
 
 <script type="text/javascript">
 	var map, map_police;
 	var pos = {latitude:0.00, longitude:0.00};
 	var markers = [];
 	var thiefMarker;
+	var curr_state;
+	function deviceMotionCallbackHandler(e) {
+		if (e.accelerationIncludingGravity.x * 1000 > 8000) {
+			$.mobile.changePage("#thief");
+		}
+		else if (e.accelerationIncludingGravity.x * 1000 < -8000) {
+			$.mobile.changePage("#police");
+		}
+	}
 	function registerPolice() {
 		var name = document.getElementById("policeName").value;
 		var oReq = new XMLHttpRequest;
@@ -72,16 +91,53 @@
 			map: map
 		});
 
-		// Get hint(push notification if this thief are near by any polices).
-		// Using TIZEN WEB DEVICE API(javascript for HYBRID APP).
-		// TO DO.
+		// Get hint(get notification if this thief are near by any polices).
+		$.ajax({
+      		type: 'GET',
+      		url: 'http://cspro.sogang.ac.kr/~cse20121657/project/senddata.php',
+      		success: function(result) {
+          		for (var i = 0; i < result.length; ++i) {
+              		var currName = result[i][0];
+              		var policeLat = result[i][1];
+              		var policeLng = result[i][2];
+                	if ( (Math.abs(policeLat - pos.latitude) +
+                        	Math.abs(policeLng - pos.longitude)) * 1000 < 50) {
+                    	var audioElem = document.getElementById("shoot");
+                    	audioElem.vol = 3;
+                    	audioElem.play();
+                    	alert("You Died!");
+                    	$.mobile.changePage('#main', {
+            				transition: 'slide'
+            			});
+            			curr_state = 0;
+                	}
+          		}
+      		},
+  		});
 	}
+
+	function deviceMotionCallbackHandler(e) {
+		if (curr_state == 0) {
+			if (e.accelerationIncludingGravity.x * 1000 > 8000) {
+				curr_state = 1;
+				$.mobile.changePage("#police");
+			}
+			else if (e.accelerationIncludingGravity.x * 1000 < -8000) {
+				curr_state = 2;
+				$.mobile.changePage("#thief");
+			}
+		}
+	}
+	window.addEventListener("devicemotion", function(e) {
+		deviceMotionCallbackHandler(e);
+    });
 </script>
 </head>
 
 <body>
 	<script type="text/javascript">
 		$(document).on("pageshow", "#main", function() {
+			curr_state = 0;
 			map = googleLocation.initialize();
 			googleLocation.getCurrentLocation(map, pos);
 		});
@@ -107,9 +163,10 @@
 		</div>
 		<div data-role="content" data-theme="d">
 			<ul data-role="listview">
-				<li id="playPolice"><a href="#police">Play with police</a></li>
-				<li id="playThief"><a href="#thief">Play with thief</a></li>
+				<li id="playPolice">Play with police</li>
+				<li id="playThief">Play with thief</li>
 			</ul>
+			<audio id="shoot" preload="" src="audio/gun.wav"></audio>
 		</div>
 	</div>
 	

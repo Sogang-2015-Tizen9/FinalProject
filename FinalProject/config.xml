@@ -8,6 +8,12 @@
     <name>FinalProject</name>
     <tizen:privilege name="http://tizen.org/privilege/location"/>
     <tizen:privilege name="http://tizen.org/privilege/internet"/>
+    <tizen:privilege name="http://tizen.org/privilege/push"/>
+    <tizen:privilege name="http://tizen.org/privilege/alarm"/>
+    <feature name="http://tizen.org/api/tizen" required="true"/>
+	<feature name="http://tizen.org/api/alarm" required="true"/>  
+	<feature name="http://tizen.org/api/alarm.read" required="true"/>  
+	<feature name="http://tizen.org/api/alarm.write" required="true"/>  
     <tizen:profile name="mobile"/>
     <tizen:setting screen-orientation="portrait" context-menu="enable" background-support="disable" encryption="disable" install-location="auto" hwkey-event="enable"/>
 </widget>
